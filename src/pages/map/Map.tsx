@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+//@ts-ignore
 import MapGL from "react-map-gl";
 import PopupBox from "src/components/popup/Popup";
 import "mapbox-gl/dist/mapbox-gl.css";
