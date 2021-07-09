@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MapGL from "react-map-gl";
+import mapboxgl from 'mapbox-gl';
 import PopupBox from "src/components/popup/Popup";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./map.css";
@@ -100,6 +101,6 @@ const Map: React.FC = () => {
 
 //@ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
-MapGL.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 export default Map;
