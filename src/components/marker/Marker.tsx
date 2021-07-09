@@ -1,4 +1,5 @@
 import React from "react";
+//@ts-ignore
 import { Marker } from "react-map-gl";
 
 const MarkerPoint: React.FC<MarkerProps> = ({ item, onClickOnMarker }) => {

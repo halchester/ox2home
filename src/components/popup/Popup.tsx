@@ -1,4 +1,5 @@
 import React from "react";
+//@ts-ignore
 import { Popup } from "react-map-gl";
 import { Heading, Text } from "@chakra-ui/react";
 
