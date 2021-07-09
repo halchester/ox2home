@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import MapGL, { Popup, Marker } from "react-map-gl";
+import MapGL from "react-map-gl";
+import PopupBox from "src/components/popup/Popup";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./map.css";
-
-type PointProps = {
-  title: string;
-  address: string;
-  numbers: string[];
-  latitude: number;
-  longitude: number;
-};
+import MarkerPoint from "src/components/marker/Marker";
 
 const Map: React.FC = () => {
   const [activePoint, setActivePoint] = useState<PointProps | any>(null);
@@ -59,8 +53,6 @@ const Map: React.FC = () => {
     setActivePoint(item);
   };
 
-  console.log(window.innerWidth);
-
   return (
     <MapGL
       style={{ width: window.innerWidth, height: window.innerHeight }}
@@ -74,42 +66,11 @@ const Map: React.FC = () => {
       }}
     >
       {coordinates.map((item: PointProps, i: number) => (
-        <Marker key={i} latitude={item.latitude} longitude={item.longitude}>
-          <button
-            className="marker-btn"
-            onClick={(e) => onClickOnMarker(e, item)}
-          >
-            <img
-              src="/assets/images/o2-icon.png"
-              alt="o2-icon"
-              style={{
-                width: 30,
-                height: 30,
-              }}
-            />
-          </button>
-        </Marker>
+        <MarkerPoint item={item} key={i} onClickOnMarker={onClickOnMarker} />
       ))}
 
       {activePoint && (
-        <Popup
-          latitude={activePoint.latitude}
-          longitude={activePoint.longitude}
-          className="popup"
-          closeOnClick={false}
-          onClose={() => {
-            setActivePoint(null);
-          }}
-        >
-          <h5>{activePoint.title}</h5>
-          <p>{activePoint.address}</p>
-          {activePoint.numbers.map((num: string, i: number) => (
-            <span key={i}>
-              {num}
-              <br />
-            </span>
-          ))}
-        </Popup>
+        <PopupBox activePoint={activePoint} setActivePoint={setActivePoint} />
       )}
     </MapGL>
   );
