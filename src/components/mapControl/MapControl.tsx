@@ -10,7 +10,7 @@ import "./map-control.css";
 const MapControl: React.FC = () => {
   return (
     <div className="region-select">
-      <Select>
+      <Select boxShadow="lg" >
         {regions &&
           regions.map((region, i) => (
             <option key={i} value={region.value}>

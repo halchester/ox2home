@@ -15,3 +15,8 @@ interface MarkerProps {
   item: PointProps;
   onClickOnMarker: (any, PointProps) => void;
 }
+
+interface AboutFabButtonProps {
+  btnRef: HTMLButtonElement | any;
+  onOpenInfoDrawer: () => void;
+}

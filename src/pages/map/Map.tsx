@@ -1,20 +1,31 @@
 import React, { useState } from "react";
 //@ts-ignore
 import MapGL from "react-map-gl";
+
+// Components
 import PopupBox from "src/components/popup/Popup";
 import MarkerPoint from "src/components/marker/Marker";
 import MapControl from "src/components/mapControl/MapControl";
+import AboutFabButton from "src/components/about/AboutFabButton";
+import InfoDrawer from "src/components/drawer/InfoDrawer";
+
+// Chakra components
+import { useDisclosure } from "@chakra-ui/react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./map.css";
 
 const Map: React.FC = () => {
+  const btnInfoDrawerRef = React.useRef<HTMLButtonElement>();
+  const {
+    isOpen: isOpenInfoDrawer,
+    onOpen: onOpenInfoDrawer,
+    onClose: onCloseInfoDrawer,
+  }: any = useDisclosure();
   const [activePoint, setActivePoint] = useState<PointProps | any>(null);
   const [viewport, setViewport] = useState<any>({
     latitude: 16.805312353924744,
     longitude: 96.15919476831377,
-    width: window.innerWidth,
-    height: window.innerHeight,
     zoom: 12,
   });
 
@@ -73,6 +84,13 @@ const Map: React.FC = () => {
 
   return (
     <React.Fragment>
+      {/* This component is used to see the information of this map */}
+
+      <InfoDrawer
+        isOpenInfoDrawer={isOpenInfoDrawer}
+        onCloseInfoDrawer={onCloseInfoDrawer}
+        btnRef={btnInfoDrawerRef}
+      />
       <MapGL
         style={{ width: window.innerWidth, height: window.innerHeight }}
         mapStyle="mapbox://styles/r4y/ckqy4djcy3pam17qu6nc59gy4"
@@ -84,6 +102,7 @@ const Map: React.FC = () => {
           setViewport(viewport);
         }}
       >
+        {/* This component is used to change the regions of the map */}
         <MapControl />
 
         {/* This component is used to render all o2 available services location in map */}
@@ -95,6 +114,12 @@ const Map: React.FC = () => {
         {activePoint && (
           <PopupBox activePoint={activePoint} setActivePoint={setActivePoint} />
         )}
+
+        {/* This component is used to see the information of this map */}
+        <AboutFabButton
+          btnRef={btnInfoDrawerRef}
+          onOpenInfoDrawer={onOpenInfoDrawer}
+        />
       </MapGL>
     </React.Fragment>
   );
