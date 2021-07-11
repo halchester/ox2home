@@ -77,7 +77,7 @@ const Map: React.FC = () => {
         style={{ width: window.innerWidth, height: window.innerHeight }}
         mapStyle="mapbox://styles/r4y/ckqy4djcy3pam17qu6nc59gy4"
         latitude={viewport.latitude}
-        mapboxApiAccessToken="pk.eyJ1IjoicjR5IiwiYSI6ImNrcXdpODBzZTA3cWIyd254NTh0enRwYmQifQ.iuxe077CeSSr0T-lnacRGQ"
+        mapboxApiAccessToken={process.env.REACT_APP_MAP_ACCESS_TOKEN}
         longitude={viewport.longitude}
         zoom={viewport.zoom}
         onViewportChange={(viewport: any) => {
