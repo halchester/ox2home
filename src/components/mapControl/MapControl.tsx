@@ -1,6 +1,7 @@
 import React from "react";
 import { Select } from "@chakra-ui/react";
-import './map-control.css';
+import { regions } from "./regions";
+import "./map-control.css";
 
 /**
  * This component is used to select the region.
@@ -9,10 +10,16 @@ import './map-control.css';
 const MapControl: React.FC = () => {
   return (
     <div className="region-select">
-      <Select placeholder="Select option">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+      <Select placeholder="Yangon(ရန်ကုန်)">
+        {regions &&
+          regions.map((region, i) => (
+            <option key={i} value={region.value}>
+              {region.name}
+            </option>
+          ))}
+        <option value="not-available" disabled>
+          Not yet available for other regions.
+        </option>
       </Select>
     </div>
   );
