@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //@ts-ignore
-import MapGL from "react-map-gl";
+import MapGL, { Marker } from "react-map-gl";
 import PopupBox from "src/components/popup/Popup";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./map.css";
@@ -13,7 +13,11 @@ const Map: React.FC = () => {
     longitude: 96.15919476831377,
     width: window.innerWidth,
     height: window.innerHeight,
-    zoom: 13,
+    zoom: 12,
+  });
+  const [user, setUser] = useState<any>({
+    latitude: 16.805312353924744,
+    longitude: 96.15919476831377,
   });
 
   // Demo data
@@ -72,6 +76,16 @@ const Map: React.FC = () => {
     },
   ];
 
+  React.useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      console.log(pos.coords)
+      setUser({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
+    });
+  }, []);
+
   const onClickOnMarker = (e: any, item: any) => {
     e.preventDefault();
     setActivePoint(item);
@@ -80,7 +94,7 @@ const Map: React.FC = () => {
   return (
     <MapGL
       style={{ width: window.innerWidth, height: window.innerHeight }}
-      mapStyle="mapbox://styles/r4y/ckqwj80df7uwd18o0ugmtse4k"
+      mapStyle="mapbox://styles/r4y/ckqy4djcy3pam17qu6nc59gy4"
       latitude={viewport.latitude}
       mapboxApiAccessToken="pk.eyJ1IjoicjR5IiwiYSI6ImNrcXdpODBzZTA3cWIyd254NTh0enRwYmQifQ.iuxe077CeSSr0T-lnacRGQ"
       longitude={viewport.longitude}
@@ -95,6 +109,23 @@ const Map: React.FC = () => {
 
       {activePoint && (
         <PopupBox activePoint={activePoint} setActivePoint={setActivePoint} />
+      )}
+
+      {user && (
+        <Marker latitude={user.latitude} longitude={user.longitude}>
+          <button
+            className="marker-btn"
+          >
+            <img
+              src="https://image.flaticon.com/icons/png/512/684/684908.png"
+              alt="o2-icon"
+              style={{
+                width: 30,
+                height: 30,
+              }}
+            />
+          </button>
+        </Marker>
       )}
     </MapGL>
   );

@@ -13,6 +13,7 @@ const PopupBox: React.FC<PopupProps> = ({ activePoint, setActivePoint }) => {
       onClose={() => {
         setActivePoint(null);
       }}
+      offsetLeft={10}
     >
       <Heading as="h5" size="sm" mb="3">
         {activePoint.title}
