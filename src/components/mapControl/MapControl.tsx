@@ -10,7 +10,7 @@ import "./map-control.css";
 const MapControl: React.FC = () => {
   return (
     <div className="region-select">
-      <Select placeholder="Yangon(ရန်ကုန်)">
+      <Select>
         {regions &&
           regions.map((region, i) => (
             <option key={i} value={region.value}>
