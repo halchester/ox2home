@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 //@ts-ignore
-import MapGL, { Marker } from "react-map-gl";
+import MapGL from "react-map-gl";
 import PopupBox from "src/components/popup/Popup";
+import MarkerPoint from "src/components/marker/Marker";
+import MapControl from "src/components/mapControl/MapControl";
+
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./map.css";
-import MarkerPoint from "src/components/marker/Marker";
 
 const Map: React.FC = () => {
   const [activePoint, setActivePoint] = useState<PointProps | any>(null);
@@ -15,27 +17,22 @@ const Map: React.FC = () => {
     height: window.innerHeight,
     zoom: 12,
   });
-  const [user, setUser] = useState<any>({
-    latitude: 16.805312353924744,
-    longitude: 96.15919476831377,
-  });
 
   // Demo data
   const coordinates: PointProps[] = [
     {
-      title: "ဗြဟ္မစိုရ်မိုး",
-      address: "ပုသိမ်ညွန့်ရပ်ကွက်၊ တာမွေ၊ ရန်ကုန်",
-      numbers: ["091234567", "091234523", "09123244"],
-      latitude: 16.788806,
-      longitude: 96.167965,
+      title: "Private Oxygen Donation",
+      address: "၆၀၁/က၊ အသက ၂၀ လမ်း၊ ၁၀ ရပ်ကွက်၊ တောင်ဥက္ကလာပ၊ ရန်ကုန်",
+      numbers: ["0973008409"],
+      latitude: 16.8497468,
+      longitude: 96.1871037,
     },
     {
-      title: "မင်္ဂလာ",
-      address:
-        "မင်္ဂလာ သိဒ္ဓိလမ်း၊ ဦးချစ်မောင်လမ်းဒေါင့်၊ မင်းလမ်းမှတ်တိုင်၊ ဆရာစံ(တောင်)ရပ်ကွက်၊ ဗဟန်း၊ ရန်ကုန်",
-      numbers: ["091234567", "091234523", "09123244"],
-      latitude: 16.819587,
-      longitude: 96.164923,
+      title: "အောက်ဆီဂျင်အလှူအဖွဲ့",
+      address: "၈/၁၊ ဓမ္မရာဇာလမ်း၊ ၁၀ ရပ်ကွက်၊ တောင်ဥက္ကလာပ၊ ရန်ကုန်",
+      numbers: ["095072781", "09420000564", "09979613961"],
+      latitude: 16.8468136,
+      longitude: 96.1826143,
     },
     {
       title: "အေးချမ်းမေတ္တာ လူမှုကူညီရေးအသင်း",
@@ -67,24 +64,7 @@ const Map: React.FC = () => {
       latitude: 16.826724,
       longitude: 96.134319,
     },
-    {
-      title: "အေးစေတနာ",
-      address: "၄၂၈၊ ရွှေအင်းဝလမ်း၊ ၅၅ ရပ်ကွက်၊ တောင်ဒဂုံ၊ ရန်ကုန်",
-      numbers: ["091234567", "091234523", "09123244"],
-      latitude: 16.844634,
-      longitude: 96.176205,
-    },
   ];
-
-  React.useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      console.log(pos.coords)
-      setUser({
-        latitude: pos.coords.latitude,
-        longitude: pos.coords.longitude,
-      });
-    });
-  }, []);
 
   const onClickOnMarker = (e: any, item: any) => {
     e.preventDefault();
@@ -92,42 +72,31 @@ const Map: React.FC = () => {
   };
 
   return (
-    <MapGL
-      style={{ width: window.innerWidth, height: window.innerHeight }}
-      mapStyle="mapbox://styles/r4y/ckqy4djcy3pam17qu6nc59gy4"
-      latitude={viewport.latitude}
-      mapboxApiAccessToken="pk.eyJ1IjoicjR5IiwiYSI6ImNrcXdpODBzZTA3cWIyd254NTh0enRwYmQifQ.iuxe077CeSSr0T-lnacRGQ"
-      longitude={viewport.longitude}
-      zoom={viewport.zoom}
-      onViewportChange={(viewport: any) => {
-        setViewport(viewport);
-      }}
-    >
-      {coordinates.map((item: PointProps, i: number) => (
-        <MarkerPoint item={item} key={i} onClickOnMarker={onClickOnMarker} />
-      ))}
+    <React.Fragment>
+      <MapGL
+        style={{ width: window.innerWidth, height: window.innerHeight }}
+        mapStyle="mapbox://styles/r4y/ckqy4djcy3pam17qu6nc59gy4"
+        latitude={viewport.latitude}
+        mapboxApiAccessToken="pk.eyJ1IjoicjR5IiwiYSI6ImNrcXdpODBzZTA3cWIyd254NTh0enRwYmQifQ.iuxe077CeSSr0T-lnacRGQ"
+        longitude={viewport.longitude}
+        zoom={viewport.zoom}
+        onViewportChange={(viewport: any) => {
+          setViewport(viewport);
+        }}
+      >
+        <MapControl />
 
-      {activePoint && (
-        <PopupBox activePoint={activePoint} setActivePoint={setActivePoint} />
-      )}
+        {/* This component is used to render all o2 available services location in map */}
+        {coordinates.map((item: PointProps, i: number) => (
+          <MarkerPoint item={item} key={i} onClickOnMarker={onClickOnMarker} />
+        ))}
 
-      {user && (
-        <Marker latitude={user.latitude} longitude={user.longitude}>
-          <button
-            className="marker-btn"
-          >
-            <img
-              src="https://image.flaticon.com/icons/png/512/684/684908.png"
-              alt="o2-icon"
-              style={{
-                width: 30,
-                height: 30,
-              }}
-            />
-          </button>
-        </Marker>
-      )}
-    </MapGL>
+        {/* This component is used to show description of selected point in map */}
+        {activePoint && (
+          <PopupBox activePoint={activePoint} setActivePoint={setActivePoint} />
+        )}
+      </MapGL>
+    </React.Fragment>
   );
 };
 

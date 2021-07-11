@@ -1,0 +1,22 @@
+.region-select {
+  position: absolute;
+  top: 6%;
+  width: 90%;
+  align-self: center;
+  background-color: white;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* For Desktop */
+@media only screen and (min-width: 600px) {
+  .region-select {
+    position: absolute;
+    top: 6%;
+    width: 30%;
+    align-self: center;
+    background-color: white;
+    left: 80%;
+    transform: translate(-50%, -50%);
+  }
+}
