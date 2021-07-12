@@ -4,13 +4,22 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
+import { SWRConfig } from "swr";
+import { fetcher } from "src/libs/api";
 
 ReactDOM.render(
-  <ChakraProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </ChakraProvider>,
+  <SWRConfig
+    value={{
+      refreshInterval: 8000,
+      fetcher,
+    }}
+  >
+    <ChakraProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ChakraProvider>
+  </SWRConfig>,
   document.getElementById("root")
 );
 

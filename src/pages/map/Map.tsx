@@ -12,6 +12,9 @@ import InfoDrawer from "src/components/drawer/InfoDrawer";
 // Chakra components
 import { useDisclosure } from "@chakra-ui/react";
 
+// API & stores
+import { useFetchActiveMarkers } from "src/hooks/useMarkers";
+
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./map.css";
 
@@ -29,6 +32,8 @@ const Map: React.FC = () => {
     zoom: 12,
   });
 
+  const { data, error }: any = useFetchActiveMarkers();
+  console.log("data", data);
   // Demo data
   const coordinates: PointProps[] = [
     {
