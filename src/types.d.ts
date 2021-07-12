@@ -1,7 +1,7 @@
 interface PointProps {
   title: string;
   address: string;
-  numbers: string[];
+  phoneNumbers: string[];
   latitude: number;
   longitude: number;
 }

@@ -10,7 +10,7 @@ import { fetcher } from "src/libs/api";
 ReactDOM.render(
   <SWRConfig
     value={{
-      refreshInterval: 8000,
+      refreshInterval: 5000,
       fetcher,
     }}
   >

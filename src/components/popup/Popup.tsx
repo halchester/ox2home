@@ -9,8 +9,8 @@ import "./popup.css";
 const PopupBox: React.FC<PopupProps> = ({ activePoint, setActivePoint }) => {
   return (
     <Popup
-      latitude={activePoint.latitude}
-      longitude={activePoint.longitude}
+      latitude={activePoint?.latitude}
+      longitude={activePoint?.longitude}
       className="popup"
       closeOnClick={false}
       onClose={() => {
@@ -18,12 +18,12 @@ const PopupBox: React.FC<PopupProps> = ({ activePoint, setActivePoint }) => {
       }}
     >
       <Heading as="h5" size="sm" mb="3">
-        {activePoint.title}
+        {activePoint?.title}
       </Heading>
       <Text fontSize="md" mb="2">
-        {activePoint.address}
+        {activePoint?.address}
       </Text>
-      {activePoint.numbers.map((num: string, i: number) => (
+      {activePoint?.phoneNumbers.map((num: string, i: number) => (
         <Grid templateColumns="repeat(3, 1fr)" gap={4} mb={2}>
           <GridItem colSpan={2} alignSelf="center">
             <Text fontSize="md">{num}</Text>

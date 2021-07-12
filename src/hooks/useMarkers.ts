@@ -6,8 +6,8 @@ function useFetchActiveMarkers() {
   );
 
   return {
-    coordinates: data,
-    isLoading: !error && !data,
+    coordinates: data?.data,
+    isLoading: !error && !data?.data,
     isError: error,
   };
 }
